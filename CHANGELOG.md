@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.21.2
+_2026-02-27_
+
+Add Poko annotations to all Java source sets by default.
+
+Compile with Kotlin 2.3.10. Add forward compatibility with Kotlin 2.4.0-dev-3806. This should allow
+Poko to work correctly with IntelliJ 2026 preview builds.
+
 ## 0.21.1
 _2026-01-08_
 
