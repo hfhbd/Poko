@@ -33,7 +33,7 @@ allprojects {
     // The tests vary their own JVM targets among multiple targets. Do not overwrite them.
     if (path !in setOf(":poko-tests")) {
         val kotlinPluginHandler: AppliedPlugin.() -> Unit = {
-            val javaVersion = JavaVersion.VERSION_1_8
+            val javaVersion = JavaVersion.VERSION_11
             project.tasks.withType<JavaCompile>().configureEach {
                 sourceCompatibility = javaVersion.toString()
                 targetCompatibility = javaVersion.toString()

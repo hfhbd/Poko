@@ -63,6 +63,7 @@ tasks.validatePlugins {
 
 dependencies {
     compileOnly(libs.kotlin.gradleApi)
+    compileOnly(libs.android.gradleApi)
 
     testImplementation(libs.junit)
     testImplementation(libs.assertk)

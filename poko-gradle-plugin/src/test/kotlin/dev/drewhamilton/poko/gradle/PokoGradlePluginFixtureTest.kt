@@ -24,6 +24,11 @@ class PokoGradlePluginFixtureTest(
 
     }
 
+    @Test fun simpleAndroid() {
+        val result = createRunner(File("src/test/fixtures/simple-android")).build()
+        assertThat(result.output).contains(BuildConfig.annotationsDependency)
+    }
+
     @Test fun simpleMpp() {
         val result = createRunner(File("src/test/fixtures/simple-mpp")).build()
         assertThat(result.output).contains(BuildConfig.annotationsDependency)
