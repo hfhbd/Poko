@@ -110,6 +110,9 @@ class PokoBuildPlugin : Plugin<Project> {
                     abiValidation as AbiValidationExtension
                     abiValidation.enabled.set(true)
                 }
+                project.tasks.named("check") {
+                    dependsOn(project.tasks.named("checkLegacyAbi"))
+                }
             }
             project.pluginManager.withPlugin("org.jetbrains.kotlin.jvm", kotlinPluginHandler)
             project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform", kotlinPluginHandler)
