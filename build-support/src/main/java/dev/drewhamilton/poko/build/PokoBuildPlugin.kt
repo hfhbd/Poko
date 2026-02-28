@@ -104,11 +104,16 @@ class PokoBuildPlugin : Plugin<Project> {
                 val kotlin = project.extensions.getByType<KotlinBaseExtension>()
                 kotlin.explicitApi()
                 val abiValidation = (kotlin as ExtensionAware).extensions.getByName("abiValidation")
+                // KT-84630 KGP: AbiValidationMultiplatformExtension does not extend AbiValidationExtension
                 if (abiValidation is AbiValidationMultiplatformExtension) {
                     abiValidation.enabled.set(true)
                 } else {
                     abiValidation as AbiValidationExtension
                     abiValidation.enabled.set(true)
+                }
+                // KT-78525 KGP: abiValidation: check does not depend on checkLegacyAbi when enabled
+                project.tasks.named("check") {
+                    dependsOn(project.tasks.named("checkLegacyAbi"))
                 }
             }
             project.pluginManager.withPlugin("org.jetbrains.kotlin.jvm", kotlinPluginHandler)
