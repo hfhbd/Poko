@@ -62,7 +62,8 @@ class PokoGradlePluginFixtureTest(
                 VERSION_PROPERTY,
                 VALIDATE_KOTLIN_METADATA,
                 "-Dorg.gradle.configuration-cache=true",
-                "-Dorg.gradle.unsafe.isolated-projects=$isolatedProjects"
+                "-Dorg.gradle.unsafe.isolated-projects=$isolatedProjects",
+                "-PkotlinVersion=${TestBuildConfig.KOTLIN_VERSION}",
             )
             .forwardOutput()
     }
