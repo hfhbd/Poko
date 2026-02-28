@@ -111,6 +111,7 @@ class PokoBuildPlugin : Plugin<Project> {
                     abiValidation as AbiValidationExtension
                     abiValidation.enabled.set(true)
                 }
+                // KT-78525 KGP: abiValidation: check does not depend on checkLegacyAbi when enabled
                 project.tasks.named("check") {
                     dependsOn(project.tasks.named("checkLegacyAbi"))
                 }
