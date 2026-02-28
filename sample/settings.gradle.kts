@@ -21,6 +21,12 @@ pluginManagement {
         mavenCentral()
         google()
 
+        // foojay plugin:
+        gradlePluginPortal()
+
+        // Used for non-ephemeral dev versions:
+        maven("https://redirector.kotlinlang.org/maven/bootstrap")
+
         if (extra.has("kotlin_dev_repository")) {
             val kotlinDevRepository = extra["kotlin_dev_repository"]!!
             logger.lifecycle("Adding <$kotlinDevRepository> repository for plugins")
@@ -36,6 +42,10 @@ pluginManagement {
             }
         }
     }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 rootProject.name = "PokoSample"

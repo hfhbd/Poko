@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.CommonExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     id("dev.drewhamilton.poko") apply false
@@ -39,7 +38,11 @@ allprojects {
                 }
             }
         }
+
         mavenCentral()
+
+        // Used for non-ephemeral dev versions:
+        maven("https://redirector.kotlinlang.org/maven/bootstrap")
 
         val kotlinDevRepository = rootProject.findProperty("kotlin_dev_repository")
         if (kotlinDevRepository != null) {
@@ -61,8 +64,8 @@ allprojects {
     }
 
     plugins.withId("com.android.library") {
-        with(extensions.getByType<LibraryExtension>()) {
-            compileOptions {
+        with(extensions.getByType<CommonExtension>()) {
+            with(compileOptions) {
                 sourceCompatibility = javaVersion
                 targetCompatibility = javaVersion
             }

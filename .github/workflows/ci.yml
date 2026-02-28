@@ -36,7 +36,7 @@ jobs:
           ORG_GRADLE_PROJECT_personalGpgPassword: ${{ secrets.ORG_GRADLE_PROJECT_personalGpgPassword }}
 
       - name: Upload MavenLocal directory
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: MavenLocal
           path: ~/.m2/repository/dev/drewhamilton/poko/
@@ -90,8 +90,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        poko_sample_kotlin_version: [ ~, 2.3.20-Beta1 ]
+        # Note: periodically update dev version with latest from
+        # https://packages.jetbrains.team/maven/p/kt/bootstrap/org/jetbrains/kotlin/kotlin-gradle-plugin/
+        poko_sample_kotlin_version: [ 2.3.0, ~, 2.3.20-RC, 2.4.0-dev-3806 ]
         poko_sample_kotlin_language_version: [ 1.9, ~ ]
+        exclude:
+          - poko_sample_kotlin_version: 2.4.0-dev-3806
+            poko_sample_kotlin_language_version: 1.9
     env:
       poko_sample_kotlin_version: ${{ matrix.poko_sample_kotlin_version }}
       ORG_GRADLE_PROJECT_pokoSample_kotlinLanguageVersion: ${{ matrix.poko_sample_kotlin_language_version }}
@@ -104,7 +109,7 @@ jobs:
           distribution: zulu
           java-version: 25
       - name: Download MavenLocal
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: MavenLocal
           path: ~/.m2/repository/dev/drewhamilton/poko/
